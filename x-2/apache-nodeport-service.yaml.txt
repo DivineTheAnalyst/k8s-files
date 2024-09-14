@@ -1,0 +1,14 @@
+# apache-nodeport-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache-service-nodeport
+spec:
+  selector:
+    app: apache
+  ports:
+  - protocol: TCP
+    port: 80       # Port that the service will expose
+    targetPort: 80 # Port the container is listening on
+    nodePort: 32000 # NodePort to expose (within the range 30000-32767)
+  type: NodePort
