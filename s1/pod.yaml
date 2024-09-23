@@ -1,8 +1,8 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx-pod
-spec:
-  containers:
-  - name: nginx
-    image: nginx
+apiVersion: v1                 # Specifies the API version being used, here it's v1 (stable version for core Kubernetes objects)
+kind: Pod                      # Defines the kind of Kubernetes object, here it's a Pod
+metadata:                      
+  name: nginx-pod              # Metadata section, sets the name of the Pod as 'nginx-pod'
+spec:                          
+  containers:                  # Specifies the containers that will run inside this Pod
+  - name: nginx                # The name of the container, here it's 'nginx'
+    image: nginx               # The container image to be used, in this case, the official 'nginx' image from a container registry
