@@ -1,13 +1,13 @@
 # nginx-clusterip-service.yaml
-apiVersion: v1
-kind: Service
+apiVersion: v1                        # Specifies the API version for the Kubernetes resource. 'v1' is the core API version used for Services.
+kind: Service                         # Defines the kind of Kubernetes resource. In this case, it's a Service, which exposes a set of Pods.
 metadata:
-  name: my-nginx-service-clusterip
-spec:
-  selector:
-    app: nginx
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-  type: ClusterIP
+  name: my-nginx-service-clusterip    # Metadata section where 'name' defines the name of the Service. Here, it's 'my-nginx-service-clusterip'.
+spec:                                
+  selector:                           
+    app: nginx                        # The selector matches pods with the label 'app: nginx'. This connects the service to the pods created by the Deployment.
+  ports:                              # Defines the ports that will be exposed by the Service.
+  - protocol: TCP                     # Specifies the protocol used. In this case, it's TCP, the most common protocol for web traffic.
+    port: 80                          # The port number on which the Service will be accessible within the cluster. Here, it's port 80, the default HTTP port.
+    targetPort: 80                    # The port number the Service routes to inside the container. In this case, it points to the container's port 80.
+  type: ClusterIP                     # Specifies the type of Service. 'ClusterIP' makes the Service accessible only within the Kubernetes cluster.
