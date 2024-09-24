@@ -1,10 +1,10 @@
 # curl-test-pod.yaml
-apiVersion: v1
-kind: Pod
+apiVersion: v1                        # Specifies the API version for the Kubernetes resource. 'v1' is used for basic resources like Pods.
+kind: Pod                             # Defines the kind of Kubernetes resource. Here, it's a Pod, the smallest deployable unit in Kubernetes.
 metadata:
-  name: curl-test
+  name: curl-test                     # Metadata section where 'name' defines the name of the Pod. In this case, it's named 'curl-test'.
 spec:
-  containers:
-  - name: curl
-    image: curlimages/curl
-    command: ['sh', '-c', 'sleep 3600']  # Keeps the pod alive for an hour
+  containers:                         # Defines the list of containers that will run inside the Pod.
+  - name: curl                        # The name of the container. Here, it's called 'curl'.
+    image: curlimages/curl            # Specifies the Docker image used for the container. In this case, it's the official 'curlimages/curl' image.
+    command: ['sh', '-c', 'sleep 3600'] # The command to be executed in the container. It runs 'sh' (shell) with the argument '-c' to sleep for 3600 seconds (1 hour), keeping the Pod alive.
