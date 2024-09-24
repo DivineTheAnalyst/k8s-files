@@ -1,19 +1,19 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: my-nginx
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx
-        ports:
-        - containerPort: 80
+apiVersion: apps/v1            # Specifies the API version for the Kubernetes resource, in this case, it's a Deployment, which is part of the 'apps/v1' API group.
+kind: Deployment               # Defines the kind of Kubernetes resource you're creating, here it's a Deployment.
+metadata:                      
+  name: my-nginx               # Metadata section where 'name' defines the name of the Deployment, here it’s 'my-nginx'.
+spec:                          
+  replicas: 1                  # Defines the number of pod replicas to run. In this case, it sets 1 replica (1 running instance of the pod).
+  selector:                    
+    matchLabels:               
+      app: nginx               # The selector is used to find which pods this Deployment manages, matching pods with the label 'app: nginx'.
+  template:                    # Template defines the pod template used by the Deployment to create new pods.
+    metadata:                  
+      labels:                  
+        app: nginx             # Labels to be applied to the pods created by this Deployment. Here, the label 'app: nginx' is added.
+    spec:                      
+      containers:              # Specifies the list of containers that will run inside the pod.
+      - name: nginx            # The name of the container running in the pod. In this case, it's named 'nginx'.
+        image: nginx           # The Docker image used for this container, here it's the official 'nginx' image from Docker Hub.
+        ports:                 
+        - containerPort: 80    # Specifies the port exposed by the container. Here, it’s port 80, the default HTTP port for NGINX.
