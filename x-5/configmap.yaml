@@ -1,7 +1,8 @@
-apiVersion: v1
-kind: ConfigMap
+apiVersion: v1           # The version of the Kubernetes API you're using (v1 for basic resources like ConfigMaps)
+kind: ConfigMap          # The type of resource you're creating (this is a ConfigMap)
 metadata:
-  name: my-config
+  name: my-config        # The name of your ConfigMap (you'll use this name to refer to it in your applications)
 data:
-  app.color: blue
-  app.mode: production
+  app.color: blue        # 'app.color' is a key that represents a setting (in this case, it’s set to 'blue')
+  app.mode: production   # 'app.mode' is another key (here, it's set to 'production')
+                         # ConfigMaps store configuration data as key-value pairs to keep settings separate from the application code.
