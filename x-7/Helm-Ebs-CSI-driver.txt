@@ -1,0 +1,24 @@
+#To install helm
+
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+chmod 700 get_helm.sh
+./get_helm.sh
+
+helm version
+
+
+
+#To install the EBS CSI driver via Helm:
+
+
+helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+helm repo update
+helm install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver \
+    --namespace kube-system \
+    --set controller.replicas=2
+
+
+kubectl get pod -n kube-system
+
+# After attach policies to the worker nodes - AmazonEBSCSIDriverPolicy
