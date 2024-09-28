@@ -21,4 +21,12 @@ helm install aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver \
 
 kubectl get pod -n kube-system
 
+
+OR 
+
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.8"
+
+kubectl get pod -n kube-system
+
+
 # After attach policies to the worker nodes - AmazonEBSCSIDriverPolicy
