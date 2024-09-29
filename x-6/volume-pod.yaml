@@ -1,14 +1,14 @@
-apiVersion: v1
-kind: Pod
+apiVersion: v1  # Specifies the API version to use. In this case, it's v1, which is the core API group.
+kind: Pod  # Defines the resource type. Here, it creates a Pod, which is the smallest deployable unit in Kubernetes.
 metadata:
-  name: volume-demo
+  name: volume-demo  # The name of the Pod. This name must be unique within the namespace.
 spec:
   containers:
-    - name: demo-container
-      image: nginx
+    - name: demo-container  # The name of the container inside the Pod.
+      image: nginx  # Specifies the image for the container. Here, it's the official Nginx image from Docker Hub.
       volumeMounts:
-        - mountPath: /usr/share/nginx/html
-          name: web-volume
+        - mountPath: /usr/share/nginx/html  # The path inside the container where the volume will be mounted.
+          name: web-volume  # The name of the volume to mount, which must match a volume defined below.
   volumes:
-    - name: web-volume
-      emptyDir: {}
+    - name: web-volume  # Defines a volume with the name 'web-volume', referenced by the container.
+      emptyDir: {}  # Specifies an empty directory as the volume type. This volume is created when the Pod starts and is empty initially. It is deleted when the Pod is removed.
