@@ -1,11 +1,11 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
+apiVersion: v1  # Specifies the API version for core Kubernetes resources.
+kind: PersistentVolumeClaim  # Defines the resource type as a PersistentVolumeClaim (PVC).
 metadata:
-  name: pvc-storage-class-demo
+  name: pvc-storage-class-demo  # The name of the PVC, used to request storage from a PersistentVolume.
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce  # Specifies that the volume can be mounted as read-write by a single node at a time.
   resources:
     requests:
-      storage: 1Gi
-  storageClassName: standard-storage
+      storage: 1Gi  # Requests 1 GiB of storage for the PVC. This is the size of the storage required.
+  storageClassName: standard-storage  # Refers to the StorageClass defined in a separate manifest, 'standard-storage', which will provision the storage.
