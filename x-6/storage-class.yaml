@@ -2,8 +2,9 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: standard-storage
-provisioner: kubernetes.io/aws-ebs
+provisioner: ebs.csi.aws.com
 parameters:
-  type: gp2
-reclaimPolicy: Retain
-volumeBindingMode: Immediate
+  type: gp3
+reclaimPolicy: Delete
+volumeBindingMode: Immediate 
+
