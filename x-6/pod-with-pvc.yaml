@@ -1,15 +1,15 @@
-apiVersion: v1
-kind: Pod
+apiVersion: v1  # Specifies the API version, which is v1 for core resources.
+kind: Pod  # Defines the resource type as a Pod, which runs one or more containers.
 metadata:
-  name: pvc-pod
+  name: pvc-pod  # The name of the Pod. It must be unique within the namespace.
 spec:
   containers:
-    - name: demo-container
-      image: nginx
+    - name: demo-container  # The name of the container inside the Pod.
+      image: nginx  # Specifies the container image to be used. In this case, it pulls the 'nginx' image.
       volumeMounts:
-        - mountPath: /usr/share/nginx/html
-          name: storage-volume
+        - mountPath: /usr/share/nginx/html  # Specifies the path inside the container where the volume will be mounted.
+          name: storage-volume  # Refers to the volume defined in the 'volumes' section of this Pod specification.
   volumes:
-    - name: storage-volume
+    - name: storage-volume  # The name of the volume that will be mounted in the container.
       persistentVolumeClaim:
-        claimName: pvc-demo
+        claimName: pvc-demo  # Links the volume to the PersistentVolumeClaim (PVC) named 'pvc-demo', which dynamically provides storage to this Pod.
