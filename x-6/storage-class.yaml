@@ -1,10 +1,9 @@
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
+apiVersion: storage.k8s.io/v1  # Specifies the API version for storage-related resources.
+kind: StorageClass  # Defines the resource type as a StorageClass.
 metadata:
-  name: standard-storage
-provisioner: ebs.csi.aws.com
+  name: standard-storage  # The name of the StorageClass. It will be referenced when creating PersistentVolumeClaims.
+provisioner: ebs.csi.aws.com  # Defines the provisioner that will dynamically create volumes. In this case, it's the AWS EBS CSI driver for Elastic Block Store (EBS).
 parameters:
-  type: gp3
-reclaimPolicy: Delete
-volumeBindingMode: Immediate 
-
+  type: gp3  # Specifies the type of EBS volume to provision, in this case, gp3, which is a type of General Purpose SSD in AWS.
+reclaimPolicy: Delete  # Specifies the behavior when the PersistentVolume is released. 'Delete' means the volume will be deleted when it is no longer used by any PersistentVolumeClaim.
+volumeBindingMode: Immediate  # Specifies how the volumes are bound. 'Immediate' means that the volume is provisioned as soon as the PVC is created.
