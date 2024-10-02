@@ -1,39 +1,39 @@
-# mysql-statefulset.yaml
+# We are defining a StatefulSet for MySQL because it requires persistent storage and consistent network identity.
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql
+  name: mysql  # This is the name of the StatefulSet, used for managing MySQL instances.
   labels:
-    app: mysql
+    app: mysql  # Labeling this StatefulSet for easy identification.
 spec:
   selector:
     matchLabels:
-      app: mysql
-  serviceName: "mysql"
-  replicas: 1
+      app: mysql  # This ensures the StatefulSet targets pods with the "app=mysql" label.
+  serviceName: "mysql"  # Refers to the headless service that will manage stable DNS for MySQL pods.
+  replicas: 1  # We only want one MySQL pod (instance) to run. Can be scaled up later.
   template:
     metadata:
       labels:
-        app: mysql
+        app: mysql  # Label applied to all pods created by this StatefulSet.
     spec:
       containers:
-      - name: mysql
-        image: mysql:8.0
+      - name: mysql  # The container's name is mysql.
+        image: mysql:8.0  # We are using the MySQL 8.0 image for this deployment.
         ports:
-        - containerPort: 3306
-          name: mysql
+        - containerPort: 3306  # MySQL’s default port, exposed for connections.
+          name: mysql  # This names the port to make it easy to reference.
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: rootpassword
+          value: rootpassword  # This environment variable sets the root password for MySQL.
         volumeMounts:
         - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
-  volumeClaimTemplates:
+          mountPath: /var/lib/mysql  # Mounting persistent storage to MySQL's default data directory.
+  volumeClaimTemplates:  # Defining a PersistentVolumeClaim (PVC) for MySQL's storage.
   - metadata:
-      name: mysql-persistent-storage
+      name: mysql-persistent-storage  # Naming this claim to match the volume used in the pod spec.
     spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: gp3  # Use the gp3 StorageClass
+      accessModes: [ "ReadWriteOnce" ]  # This storage can be mounted as read-write by only one pod at a time.
+      storageClassName: gp3  # The storage type is gp3, commonly used for AWS EBS volumes.
       resources:
         requests:
-          storage: 5Gi
+          storage: 5Gi  # We are requesting 5Gi (5GB) of storage for the MySQL instance.
