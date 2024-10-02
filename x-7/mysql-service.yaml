@@ -1,14 +1,14 @@
-# mysql-service.yaml
+# This defines a Service to manage network access to MySQL pods.
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: mysql  # This is the name of the service. Other resources will use this name to communicate with the MySQL pods.
   labels:
-    app: mysql
+    app: mysql  # Label applied to the service for easy identification.
 spec:
   ports:
-  - port: 3306
-    name: mysql
-  clusterIP: None  # Headless service for StatefulSets
+  - port: 3306  # Exposing port 3306, which is the default port for MySQL connections.
+    name: mysql  # Naming the port to make it easy to reference.
+  clusterIP: None  # Setting ClusterIP to None makes this a "headless" service, essential for StatefulSets.
   selector:
-    app: mysql
+    app: mysql  # This tells the service to target pods that have the label "app=mysql".
