@@ -1,25 +1,25 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1                     # Specifies the API version used for the Deployment resource
+kind: Deployment                        # Defines the type of resource we are creating, which is a Deployment
 metadata:
-  name: hello-app-blue
-  namespace: blue-green-deployment
+  name: hello-app-blue                  # The name of the Deployment is 'hello-app-blue'
+  namespace: blue-green-deployment      # The Deployment will be in the 'blue-green-deployment' namespace
   labels:
-    app: hello-app
-    version: blue
+    app: hello-app                      # Label indicating this Deployment is for the 'hello-app'
+    version: blue                       # Version label indicating this is the 'blue' version
 spec:
-  replicas: 3
+  replicas: 3                           # Specifies the number of Pod replicas, here we want 3 identical Pods
   selector:
     matchLabels:
-      app: hello-app
-      version: blue
+      app: hello-app                    # Selector matches Pods that have the label 'app: hello-app'
+      version: blue                     # The version must also match 'blue' to select the correct Pods
   template:
     metadata:
       labels:
-        app: hello-app
-        version: blue
+        app: hello-app                  # Pods created by this template will have the label 'app: hello-app'
+        version: blue                   # These Pods will also be labeled with 'version: blue'
     spec:
       containers:
-      - name: hello-app
-        image: gcr.io/google-samples/hello-app:1.0
+      - name: hello-app                 # The container's name is 'hello-app'
+        image: gcr.io/google-samples/hello-app:1.0  # The container uses the image 'hello-app' version 1.0 from Google's sample images
         ports:
-        - containerPort: 8080
+        - containerPort: 8080           # Exposes port 8080 on the container for traffic
