@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-app
+  namespace: redis-canary
+spec:
+  replicas: 10  # Total replicas
+  selector:
+    matchLabels:
+      app: redis-app
+  template:
+    metadata:
+      labels:
+        app: redis-app
+    spec:
+      containers:
+      - name: redis-container
+        image: redis:6.0.9  # Initial version
+        ports:
+        - containerPort: 6379
