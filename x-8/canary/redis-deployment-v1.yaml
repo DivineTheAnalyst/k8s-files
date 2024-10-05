@@ -1,20 +1,20 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1               # Specifies the API version used for the Deployment resource
+kind: Deployment                  # Defines the type of resource we are creating, which is a Deployment
 metadata:
-  name: redis-app
-  namespace: redis-canary
+  name: redis-app                 # The name of the Deployment is 'redis-app'
+  namespace: redis-canary         # The Deployment will be in the 'redis-canary' namespace
 spec:
-  replicas: 10  # Total replicas
+  replicas: 10                    # Number of replicas is 10, as this is the total number of Pods
   selector:
     matchLabels:
-      app: redis-app
+      app: redis-app              # Selector matches Pods that have the label 'app: redis-app'
   template:
     metadata:
       labels:
-        app: redis-app
+        app: redis-app            # Pods created by this template will have the label 'app: redis-app'
     spec:
       containers:
-      - name: redis-container
-        image: redis:6.0.9  # Initial version
+      - name: redis-container     # Name of the container is 'redis-container'
+        image: redis:6.0.9        # The Docker image for the container is Redis version 6.0.9 (initial version)
         ports:
-        - containerPort: 6379
+        - containerPort: 6379     # Exposes port 6379 on the container for Redis traffic
