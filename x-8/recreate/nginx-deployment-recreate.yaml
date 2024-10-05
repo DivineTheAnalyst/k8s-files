@@ -1,22 +1,21 @@
-# nginx-deployment-recreate.yaml
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1           # Specifies the API version used for the Deployment resource
+kind: Deployment              # Defines the type of resource we are creating, which is a Deployment
 metadata:
-  name: nginx-deployment-recreate
+  name: nginx-deployment-recreate  # The name of the Deployment is 'nginx-deployment-recreate'
 spec:
-  replicas: 3
+  replicas: 3                 # Specifies the number of Pod replicas, here we want 3 identical Pods
   strategy:
-    type: Recreate
+    type: Recreate            # 'Recreate' strategy: Deletes all existing Pods before creating new ones
   selector:
     matchLabels:
-      app: nginx
+      app: nginx              # Selector matches Pods that have the label 'app: nginx'
   template:
     metadata:
       labels:
-        app: nginx
+        app: nginx            # Pods created by this template will have the label 'app: nginx'
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.21.6 # Starting with an older version
+      - name: nginx           # Name of the container is 'nginx'
+        image: nginx:1.21.6   # The Docker image for the container is NGINX version 1.21.6
         ports:
-        - containerPort: 80
+        - containerPort: 80   # Exposes port 80 on the container for web traffic
