@@ -1,14 +1,14 @@
-apiVersion: v1
-kind: Service
+apiVersion: v1                          # Specifies the API version used for the Service resource
+kind: Service                           # Defines the type of resource, which is a Service
 metadata:
-  name: hello-app-green-service
-  namespace: blue-green-deployment
+  name: hello-app-green-service         # The name of the Service is 'hello-app-green-service'
+  namespace: blue-green-deployment      # The Service will be in the 'blue-green-deployment' namespace
 spec:
-  type: LoadBalancer
+  type: LoadBalancer                    # Type of Service is 'LoadBalancer', which exposes the Service externally
   selector:
-    app: hello-app
-    version: green
+    app: hello-app                      # The Service selects Pods with the label 'app: hello-app'
+    version: green                      # The Service only selects Pods labeled with 'version: green'
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
+    - protocol: TCP                     # The protocol for the Service is TCP
+      port: 80                          # The external port on which the Service will be accessible
+      targetPort: 8080                  # The port on the Pods (inside the containers) to which traffic is forwarded
