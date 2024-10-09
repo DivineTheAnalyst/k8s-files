@@ -1,0 +1,12 @@
+# pod-b.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-b
+  namespace: net-policy-demo
+  labels:
+    run: pod-b
+spec:
+  containers:
+  - name: nginx
+    image: nginx
