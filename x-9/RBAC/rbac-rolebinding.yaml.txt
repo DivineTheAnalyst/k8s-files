@@ -1,13 +1,13 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1  # Specifies the API version for RBAC (Role-Based Access Control).
+kind: RoleBinding                         # The kind 'RoleBinding' is used to give permissions defined in a Role to a user or group.
 metadata:
-  name: read-pods-binding
-  namespace: rbac-demo
+  name: read-pods-binding                 # The name of the RoleBinding, which makes it easier to reference or manage.
+  namespace: rbac-demo                    # The namespace where this RoleBinding is applied. It restricts the scope to this namespace.
 subjects:
-- kind: User
-  name: isaac
-  apiGroup: rbac.authorization.k8s.io
+- kind: User                              # The type of subject we're granting permissions to. Here, it's a user.
+  name: isaac                             # The name of the user who will get the permissions. Replace 'isaac' with the actual username.
+  apiGroup: rbac.authorization.k8s.io     # The API group for RBAC. This is standard for RoleBindings and should be left as is.
 roleRef:
-  kind: Role
-  name: pod-reader
-  apiGroup: rbac.authorization.k8s.io
+  kind: Role                              # Refers to a 'Role', which defines the permissions we want to grant.
+  name: pod-reader                        # The name of the Role that has the specific permissions (e.g., read access to pods).
+  apiGroup: rbac.authorization.k8s.io     # The API group for RBAC. Again, this is standard and required for Role references.
