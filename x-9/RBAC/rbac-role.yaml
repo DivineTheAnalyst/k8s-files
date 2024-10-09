@@ -1,0 +1,9 @@
+apiVersion: rbac.authorization.k8s.io/v1  # Specifies the API version for Role-Based Access Control (RBAC).
+kind: Role                                # Defines a 'Role', which sets permissions within a specific namespace.
+metadata:
+  namespace: rbac-demo                    # The namespace where this Role is applied. It limits the role's scope to this namespace.
+  name: pod-reader                        # The name of this Role. It helps identify what this Role is meant to do.
+rules:
+- apiGroups: [""]             # Specifies the API group. An empty string means we're targeting core Kubernetes resources (like 'pods').
+  resources: ["pods"]         # Lists the resources this Role can interact with. Here, it is set to 'pods'.
+  verbs: ["get", "list"]      # Specifies the actions allowed. 'get' lets the user view a specific pod, and 'list' allows viewing all pods.
