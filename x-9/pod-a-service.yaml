@@ -1,0 +1,13 @@
+# pod-a-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: pod-a-service
+  namespace: net-policy-demo
+spec:
+  selector:
+    run: pod-a  # Selects pods with the label 'run=pod-a'
+  ports:
+    - protocol: TCP
+      port: 80  # The port the service will be accessible on
+      targetPort: 80  # The port on the pod that the service will forward traffic to
