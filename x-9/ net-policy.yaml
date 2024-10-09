@@ -1,17 +1,16 @@
-# allow-from-pod-b.yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1           # Specifies the API version for network policies.
+kind: NetworkPolicy                        # Defines a 'NetworkPolicy', which controls network traffic to and from pods.
 metadata:
-  name: allow-from-pod-b
-  namespace: net-policy-demo
+  name: allow-from-pod-b                   # The name of this NetworkPolicy, used for easy reference.
+  namespace: net-policy-demo               # The namespace where this NetworkPolicy is applied, limiting its scope.
 spec:
   podSelector:
     matchLabels:
-      run: pod-a  # Applies this policy to pod-a only
+      run: pod-a                           # Selects pods with the label 'run: pod-a'. This policy will apply to 'pod-a'.
   ingress:
   - from:
     - podSelector:
         matchLabels:
-          run: pod-b  # Allows ingress only from pod-b
+          run: pod-b                       # Specifies that incoming traffic is allowed only from pods with the label 'run: pod-b'.
   policyTypes:
-  - Ingress
+  - Ingress                                # Specifies that this policy only affects incoming traffic (Ingress).
