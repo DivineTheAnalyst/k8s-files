@@ -1,10 +1,10 @@
-# deny-all-ingress.yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
+# deny-all-ingress.yaml                    # The filename of this manifest, indicating that it denies all ingress traffic.
+apiVersion: networking.k8s.io/v1           # Specifies the API version for network policies.
+kind: NetworkPolicy                        # Defines a 'NetworkPolicy', which controls network traffic to and from pods.
 metadata:
-  name: deny-all-ingress
-  namespace: net-policy-demo
+  name: deny-all-ingress                   # The name of this NetworkPolicy, used for easy reference.
+  namespace: net-policy-demo               # The namespace where this NetworkPolicy is applied, limiting its scope.
 spec:
-  podSelector: {}
+  podSelector: {}                          # An empty 'podSelector' means this policy applies to all pods in the namespace.
   policyTypes:
-    - Ingress
+    - Ingress                              # Specifies that this policy affects incoming traffic (Ingress), effectively denying all ingress.
