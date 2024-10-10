@@ -1,0 +1,52 @@
+mapUsers: |
+  - userarn: arn:aws:iam::542531754905:user/isaac  # Replace with the correct ARN for the user "isaac"
+    username: isaac
+
+
+- name: isaac
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+        - --region
+        - us-east-1
+        - eks
+        - get-token
+        - --cluster-name
+        - k8s-demo
+        - --output
+        - json
+      command: aws
+      env:
+        - name: AWS_PROFILE
+          value: isaac
+
+
+- context:
+    cluster: arn:aws:eks:us-east-1:542531754905:cluster/k8s-demo
+    user: isaac
+  name: isaac@k8s-demo
+
+#To install helm
+
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+chmod 700 get_helm.sh
+./get_helm.sh
+
+helm version
+
+#Install helm 
+
+helm repo add cilium https://helm.cilium.io/
+helm install cilium cilium/cilium --version 1.15.3 \
+  --namespace kube-system
+
+
+
+
+
+
+
+
+
