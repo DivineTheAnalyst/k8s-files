@@ -1,0 +1,49 @@
+apiVersion: apps/v1                      # Specifies the API version for the Deployment resource.
+kind: Deployment                         # Indicates that this YAML defines a Kubernetes Deployment.
+metadata:
+  name: cluster-autoscaler               # The name of the Deployment, used to identify it.
+  namespace: kube-system                 # Specifies the namespace where this Deployment will run, 'kube-system' is typically used for system-level components.
+  labels:
+    app: cluster-autoscaler              # A label to categorize this deployment, making it easier to select or identify related resources.
+spec:
+  replicas: 1                            # Ensures that only one replica of the Cluster Autoscaler pod runs at a time.
+  selector:
+    matchLabels:
+      app: cluster-autoscaler            # Defines which pods belong to this Deployment using a label selector.
+  template:
+    metadata:
+      labels:
+        app: cluster-autoscaler          # Adds the same label to the pod, so it matches the selector defined above.
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+                                           # Prevents Kubernetes from evicting this pod during node scaling down.
+                                           # Important for the autoscaler itself, so it stays running even if other pods are being evicted.
+    spec:
+      containers:
+        - image: registry.k8s.io/autoscaling/cluster-autoscaler:v1.26.2
+                                           # Specifies the container image to use for the Cluster Autoscaler.
+                                           # v1.26.2 is the version of the Cluster Autoscaler.
+          name: cluster-autoscaler        # The name of the container.
+          resources:
+            limits:
+              cpu: 100m                   # Maximum CPU the container can use is 100 milliCPU (0.1 of a CPU core).
+              memory: 300Mi               # Maximum memory the container can use is 300 MiB.
+            requests:
+              cpu: 100m                   # Minimum CPU that the container is guaranteed is 100 milliCPU.
+              memory: 300Mi               # Minimum memory that the container is guaranteed is 300 MiB.
+                                           # The container is allocated these resources when it starts.
+          command:
+            - ./cluster-autoscaler        # Command to run inside the container, starting the Cluster Autoscaler.
+            - --v=4                       # Sets the verbosity level for logging (higher numbers give more detailed logs).
+            - --cluster-name=k8s-demo     # Specifies the name of the Kubernetes cluster that the autoscaler is managing.
+            - --cloud-provider=aws        # Indicates that the autoscaler should interact with AWS for scaling actions.
+            - --balance-similar-node-groups       # Balances the scaling of similar node groups to maintain even distribution across them.
+            - --skip-nodes-with-system-pods=true  # Ensures that nodes running critical system pods (those in the 'kube-system' namespace) aren't considered for scaling down.
+            - --node-group-auto-discovery=asg:tag=kubernetes.io/cluster/k8s-demo        # The autoscaler can automatically discover node groups (ASGs) if you specify this flag                       
+          env:
+            - name: AWS_REGION
+              value: us-east-1            # Sets an environment variable 'AWS_REGION' to 'us-east-1'.
+                                           # This is necessary for the autoscaler to interact with the AWS API in the correct region.
+      serviceAccountName: cluster-autoscaler
+                                           # Specifies the service account to be used by the autoscaler.
+                                           # This service account must have the required permissions to interact with the cluster and AWS resources for scaling.
