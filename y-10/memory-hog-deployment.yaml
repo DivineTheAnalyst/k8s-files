@@ -1,0 +1,32 @@
+apiVersion: apps/v1                  # Specifies the API version for the Deployment object.
+kind: Deployment                     # Defines that this YAML file is creating a Deployment.
+metadata:
+  name: memory-hog                   # The name of the Deployment, used for identification.
+spec:
+  replicas: 1                        # Number of pod replicas to run; in this case, just one.
+  selector:
+    matchLabels:
+      app: memory-hog                # Selects pods with the label "app: memory-hog" to be managed by this Deployment.
+  template:
+    metadata:
+      labels:
+        app: memory-hog              # Assigns the label "app: memory-hog" to the created pods, allowing the selector to match them.
+    spec:
+      containers:
+      - name: memory-hog             # The name of the container within the pod.
+        image: polinux/stress        # The container image to use, in this case, a stress-testing tool.
+        command: ["stress"]          # Specifies the command to run inside the container.
+        args:
+          - "--vm"                   # Arguments for the "stress" command; "--vm" spins up a memory load.
+          - "1"                      # Number of workers to spawn for memory stress.
+          - "--vm-bytes"             # Specifies the amount of memory each worker should allocate.
+          - "80M"                    # Allocates 64MB of memory for each worker.
+          - "--vm-hang"              # Makes the stress workers hang after allocation, keeping the memory usage steady.
+          - "1"                      # Causes the memory worker to hold the memory for a longer time.
+        resources:
+          requests:
+            memory: "64Mi"           # The minimum amount of memory requested for this container (64MiB).
+            cpu: "50m"               # The minimum CPU requested (50 milliCPU).
+          limits:
+            memory: "128Mi"          # The maximum amount of memory this container can use (128MiB).
+            cpu: "100m"              # The maximum CPU this container can use (100 milliCPU).
