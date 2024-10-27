@@ -1,0 +1,20 @@
+apiVersion: autoscaling/v2  # Specifies the version of the HorizontalPodAutoscaler (HPA) API to use.
+kind: HorizontalPodAutoscaler  # Defines the type of Kubernetes resource, which is a HorizontalPodAutoscaler.
+metadata:
+  name: nginx-hpa  # Sets the name of the HPA resource, which will be used to identify it in the cluster.
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1  # Specifies the API version of the target resource (in this case, a Deployment).
+    kind: Deployment  # Indicates that the HPA should target a Deployment.
+    name: nginx  # The name of the Deployment that the HPA will manage (scaling up/down).
+  minReplicas: 2  # The minimum number of replicas (pods) the HPA will maintain, even if load is low.
+  maxReplicas: 10  # The maximum number of replicas the HPA can scale up to based on resource usage.
+  metrics:
+    - type: Resource  # Defines the type of metric to monitor. Here, it's a resource (CPU).
+      resource:
+        name: cpu  # Specifies that the metric is related to CPU usage.
+        target:
+          type: Utilization  # Indicates that the HPA should use CPU utilization (percentage) as the scaling metric.
+          averageUtilization: 50  # The target average CPU utilization (in percentage) for scaling.
+                                # If the average CPU utilization across pods goes above 50%, the HPA will scale up.
+                                # If it drops below 50%, the HPA may scale down, but not below the minimum replicas.
