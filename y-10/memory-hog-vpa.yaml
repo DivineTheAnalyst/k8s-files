@@ -1,0 +1,11 @@
+apiVersion: autoscaling.k8s.io/v1   # Specifies the API version for the Vertical Pod Autoscaler (VPA).
+kind: VerticalPodAutoscaler         # Defines that this YAML file is creating a Vertical Pod Autoscaler.
+metadata:
+  name: memory-hog-vpa              # The name of the VPA, used for identification.
+spec:
+  targetRef:
+    apiVersion: "apps/v1"           # Specifies the API version of the target resource (the Deployment).
+    kind: Deployment                # Specifies that the target resource is a Deployment.
+    name: memory-hog                # The name of the target Deployment that the VPA will monitor and adjust.
+  updatePolicy:
+    updateMode: "Auto"              # Specifies the update mode for the VPA. "Auto" means it will automatically adjust resource requests (like CPU and memory) for the pods.
