@@ -1,3 +1,14 @@
+#Helm Installation
+curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+Verify Installation: Run helm version to confirm installation.
+
+#Installing the EBS-CSI Plugin 
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.8"
+kubectl get pod -n kube-system
+
+
+
+#Values.yaml modifications for Jenkins
 livenessProbe:
   httpGet:
     path: /login # or try / or /manage
@@ -17,8 +28,6 @@ readinessProbe:
   failureThreshold: 3
 
 
-#Helm Installation
-#For helm installation on linux use the command. 
-curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
-#Verify Installation: Run helm version to confirm installation.
+
+
