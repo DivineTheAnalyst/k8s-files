@@ -1,0 +1,24 @@
+livenessProbe:
+  httpGet:
+    path: /login # or try / or /manage
+    port: 8080
+  initialDelaySeconds: 30
+  timeoutSeconds: 3
+  periodSeconds: 10
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /login # or try / or /manage
+    port: 8080
+  initialDelaySeconds: 30
+  timeoutSeconds: 3
+  periodSeconds: 10
+  failureThreshold: 3
+
+
+#Helm Installation
+#For helm installation on linux use the command. 
+curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+#Verify Installation: Run helm version to confirm installation.
