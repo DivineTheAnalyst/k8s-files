@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1  # API version to create StorageClass resources.
+kind: StorageClass  # The resource type is a StorageClass, which defines how storage is provisioned in the cluster.
+metadata:
+  name: gp3  # Name of the StorageClass, used to reference it in PersistentVolumeClaims.
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"  # This annotation marks the StorageClass as default.
+provisioner: ebs.csi.aws.com  # The provisioner is set to use AWS Elastic Block Store (EBS) via the CSI driver.
+parameters:
+  type: gp3  # Specifies the storage type as gp3.
+reclaimPolicy: Delete  # When the PersistentVolume is no longer needed, the storage will be deleted automatically.
+volumeBindingMode: WaitForFirstConsumer  # The volume is not provisioned until a pod using the PVC is scheduled.
