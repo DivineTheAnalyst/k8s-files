@@ -6,6 +6,29 @@ Verify Installation: Run helm version to confirm installation.
 kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.8"
 kubectl get pod -n kube-system
 
+#EBS-CSI-POLICY
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateTags",
+                "ec2:AttachVolume",
+                "ec2:DetachVolume",
+                "ec2:CreateVolume",
+                "ec2:DeleteVolume",
+                "ec2:ModifyVolume",
+                "ec2:DescribeVolumes",
+                "ec2:DescribeVolumeStatus",
+                "ec2:DescribeInstances",
+                "ec2:DescribeAvailabilityZones"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
 
 
 #Values.yaml modifications for Jenkins
