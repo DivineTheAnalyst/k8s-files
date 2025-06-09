@@ -3,7 +3,7 @@ mapUsers: |
     username: isaac
 
 
-- name: isaac
+- name: divine
   user:
     exec:
       apiVersion: client.authentication.k8s.io/v1beta1
@@ -13,19 +13,19 @@ mapUsers: |
         - eks
         - get-token
         - --cluster-name
-        - k8s-demo
+        - ije-cluster
         - --output
         - json
       command: aws
       env:
         - name: AWS_PROFILE
-          value: isaac
+          value: divine
 
 
 - context:
-    cluster: arn:aws:eks:us-east-1:542531754905:cluster/k8s-demo
-    user: isaac
-  name: isaac@k8s-demo
+    cluster: arn:aws:iam::221693237976:user/divine
+    user: divine
+  name: divine@ije-cluster
 
 #To install helm
 
